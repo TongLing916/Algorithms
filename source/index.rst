@@ -6,6 +6,8 @@ Algorithms Summary
    :caption: Contents:
 
    rst/dp/dp
+   rst/sort/sort
+   rst/greedy/greedy
 
 
 Indices and tables
