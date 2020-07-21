@@ -6,6 +6,7 @@ Algorithms Summary
    :caption: Contents:
 
    rst/dp/dp
+   rst/search/search
    rst/sort/sort
    rst/greedy/greedy
 

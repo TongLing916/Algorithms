@@ -1,8 +1,8 @@
 ############################
-动态规划
+查找
 ############################
 
 .. toctree::
   :maxdepth: 2
   
-  state_compression/state_compression
+  binary_search/binary_search

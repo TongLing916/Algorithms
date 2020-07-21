@@ -1,5 +1,5 @@
 ############################
-Sort
+排序
 ############################
 
 .. toctree::
@@ -7,3 +7,4 @@ Sort
   
   insertion_sort/insertion_sort
   merge_sort/merge_sort
+  topological_sort/topological_sort
