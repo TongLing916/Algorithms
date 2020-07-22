@@ -3,6 +3,8 @@
 ############################
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
   
   binary_search/binary_search
+  rotated_array/rotated_array
+  split_array/split_array

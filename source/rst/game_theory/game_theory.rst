@@ -1,12 +1,8 @@
 ############################
-图
+博弈论
 ############################
 
 .. toctree::
   :maxdepth: 2
   
-  backtracking/backtracking
-  bfs/bfs
-  dfs/dfs
-  traversal/traversal
-  
+  min_max/min_max
