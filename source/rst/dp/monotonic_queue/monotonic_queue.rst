@@ -2,8 +2,22 @@
 单调队列优化DP
 *******************
 
+题型
+====
+
+一个数组 ``nums`` 分成 ``k`` 组，求最大值，最小值，min-max，max-mean 等等。
+
+思路
+====
+
+1. 状态表示：``dp[k][i] := 将nums[0] ... nums[i]分成k组``
+2. 状态转移：思考最后一组的位置 ``j``，那么状态转移方程就变成类似 ``dp[k][i] = max(dp[k][i], dp[k - 1][j - 1] + sum(j .. i)``，其中，需要考虑 ``j`` 的取值范围，以及我们具体需要计算的东西。
+
+例题
+====
+
 `Leetcode 410. 分割数组的最大值 <https://leetcode-cn.com/problems/split-array-largest-sum/>`_
-==============================================================================================
+---------------------------------------------------------------------------------------------
 
 .. code-block:: c++
 
@@ -35,7 +49,7 @@
     };
 
 `Leetcode 813. 最大平均值和的分组 <https://leetcode-cn.com/problems/largest-sum-of-averages/>`_
-==============================================================================================
+-----------------------------------------------------------------------------------------------
 
 .. code-block:: c++
 
@@ -69,7 +83,71 @@
     };
 
 `AcWing 298. 围栏 <https://www.acwing.com/problem/content/300/>`_
-==============================================================================================
+------------------------------------------------------------------
+
+.. code-block:: c++
+
+  #include <iostream>
+  #include <vector>
+  #include <algorithm>
+
+  using namespace std;
+
+  struct Worker {
+    int l;  // max length
+    int p;  // money per length
+    int s;  // must contain
+  };
+
+  int solve(const int n, const int m, const vector<Worker>& workers) {
+      // dp[i][n]: first i workers, first n woods
+      vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+
+      for (int i = 1; i <= m; ++i) {
+          for (int j = 1; j <= n; ++j) {
+              // if worker i does not work
+              dp[i][j] = dp[i - 1][j];
+
+              // if worker i does not work at j
+              dp[i][j] = max(dp[i][j], dp[i][j - 1]);
+
+              // if worker (i - 1) works at j, start from k
+              // then, j must be in [s, s + l - 1)
+              // k must be in [max(1, j - l + 1), s]
+              const int l = workers[i - 1].l, p = workers[i - 1].p, s = workers[i - 1].s;
+              if (j < s || j > s + l - 1) {
+                  continue;
+              }
+
+              const int lo = max(1, j - l + 1);
+              for (int k = lo; k <= s; ++k) {
+                  const int len = j - k + 1;
+                  dp[i][j] = max(dp[i][j], dp[i - 1][k - 1] + p * len);
+              }
+          }
+      }
+
+      return dp[m][n];
+  }
+
+  int main() {
+      int n, m;
+      cin >> n >> m;
+      vector<Worker> workers(m);
+      for (int i = 0; i < m; ++i) {
+          cin >> workers[i].l >> workers[i].p >> workers[i].s;
+      }
+      sort(workers.begin(), workers.end(), [](const Worker& a, const Worker& b) {
+          return a.s < b.s; 
+      });
+      cout << solve(n, m, workers) << endl;
+      return 0;
+  }
 
 `AcWing 299. 裁剪序列 <https://www.acwing.com/problem/content/301/>`_
-==============================================================================================
+----------------------------------------------------------------------
+
+相关试题
+========
+
+
