@@ -2,14 +2,60 @@
 逆序对
 *******************
 
-`Count Inversions in an array <https://www.geeksforgeeks.org/counting-inversions/>`_
-====================================================================================
+`AcWing 65. 数组中的逆序对 <https://www.acwing.com/problem/content/description/61/>`_
+-------------------------------------------------------------------------------------
+
+.. code-block:: c++
+
+    class Solution {
+     public:
+      int inversePairs(vector<int>& nums) {
+        ans_ = 0;
+        mergeSort(nums, 0, nums.size() - 1);
+        return ans_;
+      }
+
+     private:
+      void mergeSort(vector<int>& nums, const int lo, const int hi) {
+        if (lo >= hi) {
+          return;
+        }
+        const int mid = lo + ((hi - lo) >> 1);
+        mergeSort(nums, lo, mid);
+        mergeSort(nums, mid + 1, hi);
+        merge(nums, lo, mid, hi);
+      }
+
+      void merge(vector<int>& nums, const int lo, const int mid, const int hi) {
+        if (lo >= hi) {
+          return;
+        }
+        vector<int> aux = nums;
+        int i = lo, j = mid + 1;
+        for (int k = lo; k <= hi; ++k) {
+          if (i > mid) {
+            nums[k] = aux[j++];
+          } else if (j > hi) {
+            nums[k] = aux[i++];
+          } else if (aux[i] <= aux[j]) {
+            nums[k] = aux[i++];
+          } else {
+            ans_ += mid - i + 1;
+            nums[k] = aux[j++];
+          }
+        }
+      }
+
+     private:
+      int ans_;
+    };
+
 
 `Leetcode 315. 计算右侧小于当前元素的个数 <https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/>`_
-==================================================================================================================
+------------------------------------------------------------------------------------------------------------------
 
-`493. 翻转对 <https://leetcode-cn.com/problems/reverse-pairs/>`_
-===============================================================
+`Leetcode 493. 翻转对 <https://leetcode-cn.com/problems/reverse-pairs/>`_
+--------------------------------------------------------------------------
 
-`629. K个逆序对数组 <https://leetcode-cn.com/problems/k-inverse-pairs-array/>`_
-==============================================================================
+`Leetcode 629. K个逆序对数组 <https://leetcode-cn.com/problems/k-inverse-pairs-array/>`_
+-----------------------------------------------------------------------------------------
