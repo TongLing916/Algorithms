@@ -4,3 +4,5 @@
 
 `1494. 并行课程 II <https://leetcode-cn.com/problems/parallel-courses-ii/>`_
 ===========================================================================
+
+`LCP 13. 寻宝 <https://leetcode-cn.com/problems/xun-bao/>`_

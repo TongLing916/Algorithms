@@ -54,6 +54,66 @@
 `Leetcode 315. 计算右侧小于当前元素的个数 <https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/>`_
 ------------------------------------------------------------------------------------------------------------------
 
+.. code-block:: c++
+
+  using LL = long long;
+  class Solution {
+   public:
+    int reversePairs(vector<int>& nums) {
+      res_ = 0;
+      mergeSort(nums, 0, nums.size() - 1);
+      return res_;
+    }
+
+   private:
+    void mergeSort(vector<int>& nums, const int lo, const int hi) {
+      if (lo >= hi) {
+        return;
+      }
+
+      const int mid = lo + ((hi - lo) >> 1);
+      mergeSort(nums, lo, mid);
+      mergeSort(nums, mid + 1, hi);
+      merge(nums, lo, mid, hi);
+    }
+
+    void merge(vector<int>& nums, const int lo, const int mid, const int hi) {
+      vector<LL> aux(hi - lo + 1);
+      for (int i = 0; i < aux.size(); ++i) {
+        aux[i] = nums[i + lo];
+      }
+
+      int i = lo, j = mid + 1;
+
+      int right = mid + 1;
+      for (int k = lo; k <= mid; ++k) {
+        while (right <= hi && aux[k - lo] > aux[right - lo] * 2) {
+          ++right;
+        }
+        res_ += right - mid - 1;
+      }
+
+      for (int k = lo; k <= hi; ++k) {
+        if (i > mid) {
+          nums[k] = aux[j - lo];
+          ++j;
+        } else if (j > hi) {
+          nums[k] = aux[i - lo];
+          ++i;
+        } else if (aux[i - lo] >= aux[j - lo]) {
+          nums[k] = aux[j - lo];
+          ++j;
+        } else {
+          nums[k] = aux[i - lo];
+          ++i;
+        }
+      }
+    }
+
+   private:
+    int res_;
+  };
+
 `Leetcode 493. 翻转对 <https://leetcode-cn.com/problems/reverse-pairs/>`_
 --------------------------------------------------------------------------
 
