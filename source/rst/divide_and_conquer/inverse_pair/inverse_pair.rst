@@ -56,6 +56,76 @@
 
 .. code-block:: c++
 
+  class Solution {
+   public:
+    vector<int> countSmaller(vector<int>& nums) {
+      res_.resize(nums.size(), 0);
+      vector<pair<int, int>> nums2;
+      for (int i = 0; i < nums.size(); ++i) {
+        nums2.push_back({i, nums[i]});
+      }
+      mergeSort(nums2, 0, nums.size() - 1);
+      return res_;
+    }
+  
+   private:
+    void mergeSort(vector<pair<int, int>>& nums, const int lo, const int hi) {
+      if (lo >= hi) {
+        return;
+      }
+  
+      const int mid = lo + ((hi - lo) >> 1);
+      mergeSort(nums, lo, mid);
+      mergeSort(nums, mid + 1, hi);
+      merge(nums, lo, mid, hi);
+    }
+  
+    void merge(vector<pair<int, int>>& nums, const int lo, const int mid,
+               const int hi) {
+      vector<pair<int, int>> aux(hi - lo + 1);
+      for (int i = lo; i <= hi; ++i) {
+        aux[i - lo] = nums[i];
+      }
+  
+      int i = lo, j = mid + 1;
+      for (int k = lo; k <= hi; ++k) {
+        int a = i - lo;
+        int b = j - lo;
+        if (i > mid) {
+          nums[k] = aux[b];
+          ++j;
+        } else if (j > hi) {
+          nums[k] = aux[a++];
+          ++i;
+          if (i <= mid) {
+            res_[aux[a].first] += j - mid - 1;
+          }
+        } else if (aux[a].second > aux[b].second) {
+          nums[k] = aux[b++];
+          ++j;
+          ++res_[aux[a].first];
+        } else {
+          nums[k] = aux[a++];
+          ++i;
+          if (i <= mid) {
+            res_[aux[a].first] += j - mid - 1;
+          }
+        }
+      }
+    }
+  
+   private:
+    vector<int> res_;
+  };
+
+`Leetcode 327. 区间和的个数 <https://leetcode-cn.com/problems/count-of-range-sum/>`_
+------------------------------------------------------------------------------------
+
+`Leetcode 493. 翻转对 <https://leetcode-cn.com/problems/reverse-pairs/>`_
+--------------------------------------------------------------------------
+
+.. code-block:: c++
+
   using LL = long long;
   class Solution {
    public:
@@ -113,9 +183,6 @@
    private:
     int res_;
   };
-
-`Leetcode 493. 翻转对 <https://leetcode-cn.com/problems/reverse-pairs/>`_
---------------------------------------------------------------------------
 
 `Leetcode 629. K个逆序对数组 <https://leetcode-cn.com/problems/k-inverse-pairs-array/>`_
 -----------------------------------------------------------------------------------------
