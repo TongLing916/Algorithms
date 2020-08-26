@@ -11,8 +11,10 @@ Algorithms Summary
    rst/game_theory/game_theory
    rst/graph/graph
    rst/greedy/greedy
+   rst/multi_threading/multi_threading
    rst/search/search
    rst/sort/sort
+   rst/two_pointer/two_pointer
 
 
 Indices and tables

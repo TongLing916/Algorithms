@@ -5,5 +5,6 @@
 .. toctree::
   :maxdepth: 2
   
-  state_compression/state_compression
+  linear_dp/linear_dp
   monotonic_queue/monotonic_queue
+  state_compression/state_compression
