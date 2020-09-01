@@ -2,6 +2,9 @@
 归并排序
 *******************
 
+1. Worst-case time: :math:`O(n \lg n)`
+2. Average time: :math:`O(n \lg n)`
+
 .. code-block:: c++
 
     #include <algorithm>
@@ -94,8 +97,3 @@
 
       cout << nums << endl;
     }
-
-
-
-`Leetcode 315. Count of Smaller Numbers After Self <https://leetcode.com/problems/count-of-smaller-numbers-after-self/>`_
-=========================================================================================================================

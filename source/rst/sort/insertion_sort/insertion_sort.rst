@@ -2,6 +2,9 @@
 插入排序
 *******************
 
+1. Worst-case time: :math:`O(n^2)`
+2. Average time: :math:`O(n^2)`
+
 .. code-block:: c++
 
     #include <iostream>
